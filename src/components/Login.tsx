@@ -1,11 +1,19 @@
-import { useState, memo } from "react";
+
+import { useContext, useState, memo } from "react";
+import { DragWrapperContext } from "./DragWrapper";
 
 const Login = () => {
   const [inputValue, setInputValue] = useState<string>("");
+  const { setActionTaken } = useContext(DragWrapperContext);
 
   const handleChange = (event : any) => {
     const { value } = event.target;
     setInputValue(value);
+    setActionTaken(true);
+  }
+
+  const handleSubmit = () => {
+    setActionTaken(true);
   }
 
   return (
@@ -15,12 +23,15 @@ const Login = () => {
         <input
           name={"login"}
           value={inputValue}
-          onChange={handleChange}
+          onMouseDown={handleChange}
+          onMouseUp={() => setActionTaken(false)}
         />
       </div>
       <button 
         className="click"
         type="button"
+        onMouseDown={handleSubmit}
+        onMouseUp={() => setActionTaken(false)}
       >
         Submit!
       </button>
