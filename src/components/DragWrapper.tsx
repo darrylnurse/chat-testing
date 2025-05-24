@@ -40,8 +40,8 @@ const DragWrapper = ({ children } : DragWrapperProps) => {
   useEffect(() => {
     if (dragRef.current) {
       setWrapperOffset({
-        x: dragRef?.current?.offsetWidth / 2,
-        y: dragRef?.current?.offsetHeight / 2
+        x: dragRef?.current["offsetWidth"] / 2,
+        y: dragRef?.current["offsetHeight"] / 2
       });
     }
 
