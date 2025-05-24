@@ -1,0 +1,8 @@
+TODO: More Placeholder Components
+TODO: Tab Minimization
+TODO: Component Collision
+TODO: Multiple Component Collision
+TODO: Websocket Chat
+TODO: User Persistance
+TODO: Login
+TODO: Intention Exploration

@@ -4,16 +4,14 @@ import {
   useEffect, 
   useRef,
   createContext,
-  useMemo
+  useMemo,
+  memo,
  } from "react";
+ import { type Coords } from "../types";
+import { genRandLocation } from "../helpers/helpers";
 
 interface DragWrapperProps {
   children: ReactNode;
-}
-
-interface Coords {
-  x: number;
-  y: number;
 }
 
 type DragWrapperContextProps = {
@@ -27,16 +25,17 @@ export const DragWrapperContext = createContext<DragWrapperContextProps>({
 });
 
 const DragWrapper = ({ children } : DragWrapperProps) => {
-  const defaultPosition = useRef<Coords>({
-    x: window.innerWidth / 2,
-    y: window.innerHeight / 2
-  });
+  const defaultPosition = useRef<Coords>(genRandLocation());
   const [isMouseDown, setMouseDown] = useState<boolean>(false);
+  const [firstDrag, setFirstDrag] = useState<boolean>(false);
   const [mousePosition, setMousePosition] = useState<Coords>({ x: 0, y: 0 });
-  const [lastMousePosition, setLastMousePosition] = useState<Coords>(defaultPosition.current);
   const [actionTaken, setActionTaken] = useState<boolean>(false);
   const dragRef = useRef(null);
   const [wrapperOffset, setWrapperOffset] = useState<Coords>({ x: 0, y: 0 });
+  const [lastMousePosition, setLastMousePosition] = useState<Coords>({
+    x: defaultPosition.current.x,
+    y: defaultPosition.current.y,
+  });
 
   useEffect(() => {
     if (dragRef.current) {
@@ -65,20 +64,27 @@ const DragWrapper = ({ children } : DragWrapperProps) => {
 
   const handleMouseDown = () => {
     setMouseDown(true);
+    setFirstDrag(true);
   }
 
   const wrapperPosition : Coords = useMemo(()  => {
-    console.log(actionTaken)
     if(!actionTaken && isMouseDown) {
       return {
         x: mousePosition.x - wrapperOffset.x,
         y: mousePosition.y - wrapperOffset.y
       }
     }
-    return {
+    if(firstDrag) {
+      return {
       x: lastMousePosition.x - wrapperOffset.x,
       y: lastMousePosition.y - wrapperOffset.y
     }
+    }
+    return {
+      x: lastMousePosition.x,
+      y: lastMousePosition.y
+    }
+    
   }, [mousePosition, actionTaken, isMouseDown])
 
   return (
@@ -86,7 +92,7 @@ const DragWrapper = ({ children } : DragWrapperProps) => {
       ref={dragRef}
       className={isMouseDown ? "drag-wrapper selected" : "drag-wrapper"}
       onMouseDown={handleMouseDown}
-      onMouseUp={handleMouseUp}
+      onMouseUp={handleMouseUp} 
       style={{
         transform: `translate(
           ${wrapperPosition.x}px, 
@@ -105,4 +111,4 @@ const DragWrapper = ({ children } : DragWrapperProps) => {
   );
 }
 
-export default DragWrapper;
+export default memo(DragWrapper);

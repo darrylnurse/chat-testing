@@ -1,5 +1,7 @@
-import { useContext, useState } from "react";
+
+import { useContext, useState, memo } from "react";
 import { DragWrapperContext } from "./DragWrapper";
+import ComponentButton from "./ComponentButton";
 
 const Login = () => {
   const [inputValue, setInputValue] = useState<string>("");
@@ -8,34 +10,27 @@ const Login = () => {
   const handleChange = (event : any) => {
     const { value } = event.target;
     setInputValue(value);
-    setActionTaken(true);
   }
 
-  const handleSubmit = () => {
-    setActionTaken(true);
-  }
 
   return (
-    <div className={"login click component"}>
+    <div className={"login component"}>
       <div className="submission">
         <label htmlFor={"login"}>Login!</label>
         <input
           name={"login"}
           value={inputValue}
-          onMouseDown={handleChange}
+          onChange={handleChange}
+          onMouseDown={() => setActionTaken(true)}
           onMouseUp={() => setActionTaken(false)}
         />
       </div>
-      <button 
-        className="click"
-        type="button"
-        onMouseDown={handleSubmit}
-        onMouseUp={() => setActionTaken(false)}
-      >
-        Submit!
-      </button>
+      <ComponentButton
+        clickHandler={null}
+        text="Submit!"
+      />
     </div>
   );
 }
 
-export default Login;
+export default memo(Login);
