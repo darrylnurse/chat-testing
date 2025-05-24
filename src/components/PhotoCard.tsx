@@ -1,12 +1,14 @@
 import { memo } from "react";
 import ComponentButton from "./ComponentButton";
+const BASE_URL = import.meta.env.BASE_URL;
 
 const PhotoCard = () => {
 
+  console.log(BASE_URL)
   return (
     <div className="photo-card component">
       <img
-        src="/daro.jpg"
+        src={BASE_URL + "daro.jpg"}
         alt="photo-card-image"
         draggable="false"
       />
