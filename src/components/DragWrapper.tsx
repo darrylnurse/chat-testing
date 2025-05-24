@@ -4,7 +4,8 @@ import {
   useEffect, 
   useRef,
   createContext,
-  useMemo
+  useMemo,
+  memo,
  } from "react";
 
 interface DragWrapperProps {
@@ -105,4 +106,4 @@ const DragWrapper = ({ children } : DragWrapperProps) => {
   );
 }
 
-export default DragWrapper;
+export default memo(DragWrapper);

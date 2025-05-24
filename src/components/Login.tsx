@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, memo } from "react";
 
 const Login = () => {
   const [inputValue, setInputValue] = useState<string>("");
@@ -28,4 +28,4 @@ const Login = () => {
   );
 }
 
-export default Login;
+export default memo(Login);
