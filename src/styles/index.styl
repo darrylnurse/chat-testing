@@ -41,10 +41,26 @@ common-border-radius = 0.25rem
     background-color: component-color
     border-radius: common-border-radius
     box-shadow: inset 0 0 0.25rem 0.125rem dark-component-color
+    user-select: none
+}
+
+.component-button {
+    padding: 0
+    font-family: font
+    background-color: dark-component-color
+    color: white
+    outline: none
+    border-radius: 0.15rem
+    padding: 0.15rem 0.5rem
+     &.selected {
+        border: dark-component-color 2px solid
+    }      
+    &:hover {
+        transform: scale(102%)
+    }
 }
 
 .login {
-    user-select: none
     width: 12rem
     height: 4rem 
     display: flex
@@ -54,6 +70,7 @@ common-border-radius = 0.25rem
     align-items: center
     justify-content: center
     font-family: font
+
     .submission {
         display: flex
         flex-direction: row
@@ -61,21 +78,29 @@ common-border-radius = 0.25rem
         align-items: center
         gap: 0.5rem
     }
+    
     input {
         padding: 0.25rem 1rem
         width: 4rem
         border-radius: 0.5rem
     }
-    button {
-        padding: 0
-        font-family: font
-        background-color: dark-component-color
-        color: white
-        outline: none
-        border-radius: 0.15rem
-        padding: 0.15rem 0.5rem
-        position: relative
-        z-index: 9999 !important;
-        pointer-events: all !important;
+}
+
+.photo-card  {
+    width: 12rem
+    height: 15rem
+    display: flex
+    flex-direction: column
+    gap: 0.75rem
+    align-items: center
+    justify-content: center
+    text-align: center
+
+    .photo-opinion {
+        display: flex
+        flex-direction: row
+        gap: 0.75rem
+        align-items: center
+        justify-content: center
     }
 }

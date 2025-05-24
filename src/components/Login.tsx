@@ -1,6 +1,7 @@
 
 import { useContext, useState, memo } from "react";
 import { DragWrapperContext } from "./DragWrapper";
+import ComponentButton from "./ComponentButton";
 
 const Login = () => {
   const [inputValue, setInputValue] = useState<string>("");
@@ -12,12 +13,9 @@ const Login = () => {
     setActionTaken(true);
   }
 
-  const handleSubmit = () => {
-    setActionTaken(true);
-  }
 
   return (
-    <div className={"login click component"}>
+    <div className={"login component"}>
       <div className="submission">
         <label htmlFor={"login"}>Login!</label>
         <input
@@ -27,14 +25,10 @@ const Login = () => {
           onMouseUp={() => setActionTaken(false)}
         />
       </div>
-      <button 
-        className="click"
-        type="button"
-        onMouseDown={handleSubmit}
-        onMouseUp={() => setActionTaken(false)}
-      >
-        Submit!
-      </button>
+      <ComponentButton
+        clickHandler={null}
+        text="Submit!"
+      />
     </div>
   );
 }

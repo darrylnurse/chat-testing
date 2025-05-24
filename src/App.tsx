@@ -1,5 +1,6 @@
 import Login from "./components/Login";
 import DragWrapper from "./components/DragWrapper";
+import PhotoCard from "./components/PhotoCard";
 
 function App() {
 
@@ -8,7 +9,9 @@ function App() {
       <DragWrapper>
         <Login/>
       </DragWrapper>
-     
+      <DragWrapper>
+        <PhotoCard/>
+      </DragWrapper>
     </div>
   )
 }
