@@ -10,7 +10,6 @@ const Login = () => {
   const handleChange = (event : any) => {
     const { value } = event.target;
     setInputValue(value);
-    setActionTaken(true);
   }
 
 
@@ -21,7 +20,8 @@ const Login = () => {
         <input
           name={"login"}
           value={inputValue}
-          onMouseDown={handleChange}
+          onChange={handleChange}
+          onMouseDown={() => setActionTaken(true)}
           onMouseUp={() => setActionTaken(false)}
         />
       </div>

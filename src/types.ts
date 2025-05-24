@@ -1,4 +1,4 @@
-export interface ILocation {
-  coordX: number,
-  coordY: number
-};
+export type Coords = {
+  x: number;
+  y: number;
+}

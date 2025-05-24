@@ -5,9 +5,10 @@ const PhotoCard = () => {
 
   return (
     <div className="photo-card component">
-      <img 
-        src=""
+      <img
+        src="/daro.jpg"
         alt="photo-card-image"
+        draggable="false"
       />
       <div>Do you like this photo?</div>
       <div className="photo-opinion">
