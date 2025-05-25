@@ -22,6 +22,7 @@ const ComponentButton = ({ clickHandler, text } : ComponentButtonProps) => {
       className="component-button"
       onMouseDown={handleSubmit}
       onMouseUp={() => setActionTaken(false)}
+      onMouseLeave={() => setActionTaken(false)}
     >
       {text}
     </button>

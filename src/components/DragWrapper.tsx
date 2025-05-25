@@ -8,7 +8,7 @@ import {
   memo,
  } from "react";
  import { type Coords } from "../types";
-import { genRandLocation } from "../helpers/helpers";
+import { genRandLocation, getElementCorners } from "../helpers/helpers";
 
 interface DragWrapperProps {
   children: ReactNode;
@@ -17,11 +17,13 @@ interface DragWrapperProps {
 type DragWrapperContextProps = {
   actionTaken: boolean;
   setActionTaken: React.Dispatch<React.SetStateAction<boolean>>;
+  wrapperPosition: Coords
 };
 
 export const DragWrapperContext = createContext<DragWrapperContextProps>({
   actionTaken: false,
   setActionTaken: (prev) => prev,
+  wrapperPosition: { x: 0, y: 0 },
 });
 
 const DragWrapper = ({ children } : DragWrapperProps) => {
@@ -85,7 +87,14 @@ const DragWrapper = ({ children } : DragWrapperProps) => {
       y: lastMousePosition.y
     }
     
-  }, [mousePosition, actionTaken, isMouseDown])
+  }, [mousePosition, actionTaken, isMouseDown]);
+
+  useEffect(() => {
+    if(dragRef.current) {
+      console.log(getElementCorners(dragRef))
+      console.log(children?.key)
+    }
+  }, [isMouseDown])
 
   return (
     <div
@@ -102,7 +111,11 @@ const DragWrapper = ({ children } : DragWrapperProps) => {
       }}
     >
       <DragWrapperContext.Provider
-        value={{actionTaken, setActionTaken}}
+        value={{
+          actionTaken,
+          setActionTaken,
+          wrapperPosition,
+        }}
       >
         {children}
       </DragWrapperContext.Provider>
