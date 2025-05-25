@@ -17,9 +17,7 @@ export const genRandLocation = () : Coords => {
 
 export const getElementCorners = (elementRef : any) : Corners => {
   const element = elementRef?.current;
-
   const rect = element.getBoundingClientRect();
-
   const { top, left, bottom, right } = rect;
 
   return {
@@ -40,4 +38,29 @@ export const getElementCorners = (elementRef : any) : Corners => {
       y: bottom
     }
   }
+}
+
+const isWithinRect = (corner : Coords, rect : any) : boolean => {
+  const { top, left, bottom, right } = rect;
+  if (
+    corner.x <= right &&
+    corner.x >= left &&
+    corner.y <= bottom &&
+    corner.y >= top
+  ) {
+    return true;
+  }
+  return false;
+}
+
+export const isCornerWithinSides = (
+  boundsElementRef: any,
+  elementCorners: Corners,
+) : boolean => {
+  const boundsElement =  boundsElementRef?.current;
+  const boundsRect = boundsElement.getBoundingClientRect();
+
+  return Object.keys(elementCorners).some((corner) => {
+    return isWithinRect(elementCorners[corner as keyof Corners], boundsRect);
+  })
 }
