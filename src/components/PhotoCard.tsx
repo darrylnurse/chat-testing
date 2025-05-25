@@ -6,7 +6,10 @@ const BASE_URL = import.meta.env.BASE_URL;
 const PhotoCard = () => {
   return (
     <DragWrapper>
-      <div className="photo-card component">
+      <div 
+        className="photo-card component"
+        key={"photo-card"}
+      >
         <img
           src={BASE_URL + "daro.jpg"}
           alt="photo-card-image"
