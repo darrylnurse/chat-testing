@@ -2,29 +2,19 @@
 import { useContext, useState, memo } from "react";
 import DragWrapper, { DragWrapperContext } from "./DragWrapper";
 import ComponentButton from "./ComponentButton";
+import ComponentAmount from "./ComponentAmount";
 
 interface LoginProps {
-  additionHandler: (...args : any[]) => any
-  removalHandler: (...args : any[]) => any
+  id: number
 }
 
-const Login = ({ additionHandler, removalHandler }:  LoginProps) => {
+const Login = ({ id }:  LoginProps) => {
   const [inputValue, setInputValue] = useState<string>("");
   const { setActionTaken } = useContext(DragWrapperContext);
 
   const handleChange = (event : any) => {
     const { value } = event.target;
     setInputValue(value);
-  }
-
-  const handleAdd = () => {
-    setActionTaken(true);
-    additionHandler();
-  }
-
-  const handleRemove = () => {
-    setActionTaken(true);
-    removalHandler();
   }
 
   return (
@@ -45,20 +35,14 @@ const Login = ({ additionHandler, removalHandler }:  LoginProps) => {
         clickHandler={null}
         text="Submit!"
       />
-      <div 
-        className="add-button"
-        onMouseDown={handleAdd}
-        onMouseUp={() => setActionTaken(false)}
-      >
-        {"+"}
-      </div>
-      <div 
-        className="remove-button"
-        onMouseDown={handleRemove}
-        onMouseUp={() => setActionTaken(false)}
-      >
-        {"+"}
-      </div>
+      <ComponentAmount 
+        type="add"
+        id={id}
+      />
+      <ComponentAmount 
+        type="remove"
+        id={id}
+      />
     </div>
     </DragWrapper>
   

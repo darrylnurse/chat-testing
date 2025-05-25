@@ -1,6 +1,16 @@
 import Login from "./components/Login";
 import PhotoCard from "./components/PhotoCard";
-import { useState, type ReactNode} from "react";
+import { createContext, useState } from "react";
+
+interface GlobalContextProps {
+  componentList: number[],
+  setComponentList: React.Dispatch<React.SetStateAction<number[]>>,
+}
+
+export const GlobalContext = createContext<GlobalContextProps>({
+  componentList: [0],
+  setComponentList: (prev) => prev,
+})
 
 function App() {
 
@@ -21,14 +31,21 @@ function App() {
       id="page"
       className="page"
     >
-      {componentList.map((id) => (
-        <Login 
-          key={id}
-          additionHandler={duplicateComponent}
-          removalHandler={() => deleteComponent(id)}
-        />
-      ))}
+      <GlobalContext.Provider
+        value={{
+          componentList,
+          setComponentList
+        }}
+      >
+        {componentList.map((id) => (
+          <Login 
+            key={id}
+            id={id}
+          />
+        ))}
       <PhotoCard/>
+      </GlobalContext.Provider>
+      
     </div>
   )
 }
