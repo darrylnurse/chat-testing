@@ -16,16 +16,6 @@ function App() {
 
  const [componentList, setComponentList] = useState([0]);
 
-  const duplicateComponent = () => {
-    setComponentList((prev) => [...prev, prev.length]);
-  };
-
-  const deleteComponent = (id : number) => {
-    setComponentList((prev) => [
-      ...prev.filter((num) => num !== id)
-    ]);
-  };
-
   return (
     <div 
       id="page"
@@ -45,7 +35,6 @@ function App() {
         ))}
       <PhotoCard/>
       </GlobalContext.Provider>
-      
     </div>
   )
 }

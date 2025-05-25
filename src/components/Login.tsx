@@ -3,6 +3,7 @@ import { useContext, useState, memo } from "react";
 import DragWrapper, { DragWrapperContext } from "./DragWrapper";
 import ComponentButton from "./ComponentButton";
 import ComponentAmount from "./ComponentAmount";
+imp
 
 interface LoginProps {
   id: number
@@ -15,6 +16,7 @@ const Login = ({ id }:  LoginProps) => {
   const handleChange = (event : any) => {
     const { value } = event.target;
     setInputValue(value);
+    setActionTaken(true)
   }
 
   return (
