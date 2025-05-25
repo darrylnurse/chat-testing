@@ -6,9 +6,11 @@ import {
   createContext,
   useMemo,
   memo,
+  useContext,
  } from "react";
  import { type Coords } from "../types";
-import { genRandLocation, getElementCorners } from "../helpers/helpers";
+import { genRandLocation, getElementCorners, isCornerWithinSides } from "../helpers/helpers";
+import { GlobalContext } from "../App";
 
 interface DragWrapperProps {
   children: ReactNode;
@@ -38,6 +40,7 @@ const DragWrapper = ({ children } : DragWrapperProps) => {
     x: defaultPosition.current.x,
     y: defaultPosition.current.y,
   });
+  const { refList } = useContext(GlobalContext);
 
   useEffect(() => {
     if (dragRef.current) {
@@ -91,8 +94,16 @@ const DragWrapper = ({ children } : DragWrapperProps) => {
 
   useEffect(() => {
     if(dragRef.current) {
-      console.log(getElementCorners(dragRef))
-      console.log(children?.key)
+      // console.log(getElementCorners(dragRef))
+      // console.log(children?.key)
+      if(refList[0]) {
+        console.log(isCornerWithinSides(refList[0], getElementCorners(dragRef)));
+      }
+      // pass both refs up to parent, do calculation within parent:
+      // child refs wont rerender from a change in context values
+      // so when the refList component is moved, this component doesnt know that.
+
+      // also, when moving reflist component, even if they never touched, it logs that this component is inside it (true)
     }
   }, [isMouseDown])
 

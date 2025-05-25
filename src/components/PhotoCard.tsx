@@ -1,12 +1,24 @@
-import { memo } from "react";
+import { memo, useContext, useEffect, useRef } from "react";
 import ComponentButton from "./ComponentButton";
 import DragWrapper from "./DragWrapper";
+import { GlobalContext } from "../App";
 const BASE_URL = import.meta.env.BASE_URL;
 
 const PhotoCard = () => {
+
+  const photoRef = useRef(null);
+  const { refList, setRefList } = useContext(GlobalContext);
+
+  useEffect(() => {
+    if(photoRef?.current) {
+      setRefList([...refList, photoRef]);
+    }
+  }, []);
+
   return (
     <DragWrapper>
       <div 
+        ref={photoRef}
         className="photo-card component"
         key={"photo-card"}
       >
